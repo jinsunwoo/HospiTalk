@@ -1,0 +1,86 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+  <script src="https://unpkg.com/vue-spinners-css"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+
+</head>
+
+<body style="width: 100%; height: 100%; overflow: hidden;">
+  <div id="app">
+    <v-container fluid>
+      <v-app>
+        <v-main>
+          <v-row style="height: 100vh;">
+            <v-col style="background-color: #aed9e0;">
+              <v-row justify="center" style="margin-top: 200px;">
+                <span v-if="!doneLoading && this.spinnerStarted" style="margin-top: 40px;">
+                  <ripple-loader :size=300 color="#007fc3" />
+                </span>
+                <v-btn v-if="!this.teachableMachineActivated" v-on:click="enableTeachableMachine(passWords)"
+                  color="#5e6472" fab large dark :height=300 :width=300>
+                  <v-icon :size=180>mdi-video</v-icon>
+                </v-btn>
+              </v-row>
+              <div style="display: flex; justify-content: center;" id="label-container"><canvas id="canvas"></canvas>
+              </div>
+            </v-col>
+            <v-col style="background-color: #b8f2e6;">
+              <v-row style="height: 55vh; background-color: #b8f2e6;">
+                <template>
+                  <v-card class="mx-auto" width="90%" height="75%" :elevation=9
+                    style="margin-top: 9%; margin-bottom: 5%; background-color: #fdfcdc;">
+                    <v-card-text>
+                      <p
+                        style="font-family: 'Ubuntu Mono', monospace, cursive; font-weight: bold; color: #5e6472; font-size: 45px; padding: 20px; line-height: 45px;">
+                        {{ textFromCamera }}
+                      </p>
+  </div>
+  </v-card-text>
+  </v-card>
+  </template>
+  </v-row>
+  <v-row style="height: 32vh; width: 96%; margin-left: auto; margin-right: auto; margin-top: 12px;">
+    <v-textarea filled name="input-7-4" outlined auto-grow :height=200 rounded inverted
+      placeholder="Enter text for the hearing-impaired/speech-impaired" label="Receptionist Reply"
+      v-model="receptionistReply"
+      style="font-family: 'Montserrat', sans-serif; font-size: 25px; height: 200px; padding: 10px; color: black;">
+    </v-textarea>
+  </v-row>
+  <v-row style="height: 13vh; width: 50%; margin: auto" justify="center">
+    <v-btn v-on:click="clear()" :elevation="4" dark color="#5e6472" large v-ripple style="height: 55px;">
+      <span style="font-size: 27px; color: white;">
+        <i style="margin-right: 10px; font-size: 27px;" class="mdi mdi-note-text-outline"></i>Clear Patient's
+        Note</span>
+    </v-btn>
+  </v-row>
+  </v-col>
+  </v-row>
+  </v-main>
+  </v-app>
+  </v-container>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
